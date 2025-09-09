@@ -1,56 +1,11 @@
 import { css } from "@/styled-system/css";
-import { HamburgerButton, MobileSidebar } from "./components";
+import { Avatar, HamburgerButton, MobileSidebar } from "./components";
 import { useCallback, useMemo, useState } from "react";
 import { Icons } from "../Icons";
 
 // Images
 import LogoUrl from "@/assets/logo.svg?url";
-
-interface DashoardItem {
-  id: string;
-  link: string;
-  title: string;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
-}
-
-export const DASHBOARD_ITEMS: DashoardItem[] = [
-  {
-    id: "my_panel",
-    title: "پنل من",
-    link: "#",
-    Icon: Icons.PersonalCard,
-  },
-  {
-    id: "treatment",
-    title: "درمان",
-    link: "#",
-    Icon: Icons.HomePlus,
-  },
-  {
-    id: "my_patients",
-    title: "بیماران من",
-    link: "#",
-    Icon: Icons.Users,
-  },
-  {
-    id: "finance",
-    title: "مالی",
-    link: "#",
-    Icon: Icons.DollarSign,
-  },
-  {
-    id: "inventory",
-    title: "انبار",
-    link: "#",
-    Icon: Icons.Layer,
-  },
-  {
-    id: "biovisit",
-    title: "بایوویزیت",
-    link: "#",
-    Icon: Icons.Calendar,
-  },
-] as const;
+import { DASHBOARD_ITEMS, USER_INFORMATIONS } from "./constants";
 
 export default function Navbar() {
   // Stats
@@ -82,7 +37,7 @@ export default function Navbar() {
           width: { base: "100%" },
           display: "flex",
           flexDir: { base: "row" },
-          alignItems: { base: "center", md: "flex-start" },
+          alignItems: { base: "center", lg: "flex-start" },
           justifyContent: { base: "space-between" },
         })}
       >
@@ -93,13 +48,58 @@ export default function Navbar() {
             height: "35px",
           })}
         />
+        <div
+          className={css({
+            display: { base: "none", lg: "flex" },
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: "16px",
+          })}
+        >
+          <div
+            className={css({
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px",
+            })}
+          >
+            <span
+              className={css({
+                color: "#606367",
+                fontFamily: "vazirmatn",
+                fontWeight: 700,
+                fontSize: "15px",
+              })}
+            >
+              EN
+            </span>
+            <Icons.Notification
+              className={css({
+                cursor: "pointer",
+              })}
+            />
+            <Icons.Settings
+              className={css({
+                cursor: "pointer",
+              })}
+            />
+            <Icons.Messages
+              className={css({
+                cursor: "pointer",
+              })}
+            />
+          </div>
+          <UserInformationBox />
+          <Avatar />
+        </div>
         <HamburgerButton open={open} toggleOpen={toggleOpen} />
       </div>
       <div
         className={css({
           display: {
             base: "none",
-            md: "flex",
+            lg: "flex",
           },
           alignItems: "center",
           justifyContent: "flex-start",
@@ -168,5 +168,65 @@ const NavigationItem = ({
         {title}
       </span>
     </Wrapper>
+  );
+};
+
+const UserInformationBox = () => {
+  return (
+    <div
+      className={css({
+        height: "max-content",
+        backgroundColor: "#EBF1FA",
+        display: "flex",
+        gap: "6px",
+        p: "12px 10px",
+        borderRadius: "50px",
+        border: "1px solid #D9D9D9",
+      })}
+    >
+      {USER_INFORMATIONS.map(({ value, title }, i) => (
+        <div
+          key={`user_information_${i}`}
+          className={css({
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "20px",
+          })}
+        >
+          <div
+            className={css({
+              width: "max-content",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              gap: "8px",
+            })}
+          >
+            <span
+              className={css({
+                fontFamily: "vazirmatn",
+                fontWeight: 400,
+                fontSize: "11px",
+                color: "#071C33",
+              })}
+            >
+              {title}:
+            </span>
+            <span
+              className={css({
+                fontFamily: "vazirmatn",
+                fontWeight: 400,
+                fontSize: "11px",
+                color: "#071C33",
+              })}
+            >
+              {value}
+            </span>
+          </div>
+          <Icons.ArrowDown width={6} height={6} />
+        </div>
+      ))}
+    </div>
   );
 };

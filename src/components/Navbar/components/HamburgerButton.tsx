@@ -21,7 +21,7 @@ export function HamburgerButton({ open, toggleOpen }: HamburgerButtonProps) {
     <button
       onClick={toggleOpen}
       className={css({
-        display: { base: "flex", md: "none" },
+        display: { base: "flex", lg: "none" },
         flexDir: "column",
         alignItems: "center",
         justifyContent: "center",

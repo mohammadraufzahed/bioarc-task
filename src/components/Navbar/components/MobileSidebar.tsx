@@ -1,11 +1,9 @@
 import { useClickOutside } from "@/hooks";
 import { css } from "@/styled-system/css";
-import { useEffect, useMemo, useState } from "react";
-
-// Images
-import AvatarUrl from "@/assets/avatar.png?url";
-import { DASHBOARD_ITEMS } from "..";
+import { useEffect, useState } from "react";
+import { DASHBOARD_ITEMS, USER_INFORMATIONS } from "../constants";
 import { Icons } from "@/components/Icons";
+import { Avatar } from "./Avatar";
 
 interface MobileSidebarProps {
   open: boolean;
@@ -49,7 +47,7 @@ export function MobileSidebar({ open, toggleOpen }: MobileSidebarProps) {
         zIndex: 100,
         transition: "opacity 500ms ease",
         opacity: open ? 1 : 0,
-        md: {
+        lg: {
           display: "none",
         },
       })}
@@ -182,74 +180,13 @@ export function MobileSidebar({ open, toggleOpen }: MobileSidebarProps) {
             ))}
           </div>
         </div>
-        <UserInformationBox />
+        <UserInformationMobileBox />
       </div>
     </div>
   );
 }
 
-const Avatar = () => {
-  return (
-    <div
-      className={css({
-        position: "relative",
-        _before: {
-          content: '" "',
-          width: "9px",
-          height: "9px",
-          position: "absolute",
-          backgroundColor: "green.400",
-          borderRadius: "50%",
-          zIndex: 10,
-          bottom: "1px",
-          right: "1px",
-          border: "2px solid #F6F8FC",
-        },
-      })}
-    >
-      <figure
-        className={css({
-          width: "40px",
-          height: "40px",
-          overflow: "hidden",
-          margin: 0,
-          borderRadius: "50%",
-          border: "2px solid #D9D9D9",
-          position: "relative",
-        })}
-      >
-        <img
-          src={AvatarUrl}
-          className={css({
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          })}
-        />
-      </figure>
-    </div>
-  );
-};
-
-const UserInformationBox = () => {
-  const informations = useMemo(
-    () => [
-      {
-        title: "مرکز",
-        value: "بیمارستان چشم پزشکی نور",
-      },
-      {
-        title: "بخش",
-        value: "قرنیه",
-      },
-      {
-        title: "دکتر راما پورمتین - از طرف",
-        value: "دکتر سید حسن هاشمی",
-      },
-    ],
-    []
-  );
+const UserInformationMobileBox = () => {
   return (
     <div
       className={css({
@@ -263,7 +200,7 @@ const UserInformationBox = () => {
         border: "1px solid #D9D9D9",
       })}
     >
-      {informations.map(({ value, title }, i) => (
+      {USER_INFORMATIONS.map(({ value, title }, i) => (
         <div
           key={`user_information_${i}`}
           className={css({
