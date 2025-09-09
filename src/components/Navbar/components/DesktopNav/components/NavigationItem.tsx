@@ -22,6 +22,7 @@ export const NavigationItem = ({
         alignItems: "center",
         justifyContent: "center",
         gap: "10px",
+        cursor: "pointer",
       })}
     >
       <Icon />
