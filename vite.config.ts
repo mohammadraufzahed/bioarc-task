@@ -6,7 +6,7 @@ import svgr from "vite-plugin-svgr";
 export default defineConfig({
     plugins: [
         react(),
-        svgr({ svgrOptions: { icon: true, memo: true, typescript: true } }),
+        svgr({ svgrOptions: { icon: true, memo: true } }),
         tsconfigPaths(),
     ],
     resolve: {
