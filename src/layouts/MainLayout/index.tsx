@@ -1,7 +1,8 @@
 import Navbar from "@/components/Navbar";
 import { css } from "@/styled-system/css";
+import { Outlet } from "react-router";
 
-export default function MainLayout({ children }: React.PropsWithChildren) {
+export default function MainLayout() {
   return (
     <div
       className={css({
@@ -20,7 +21,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
     >
       <Navbar />
 
-      {children}
+      <Outlet />
     </div>
   );
 }
