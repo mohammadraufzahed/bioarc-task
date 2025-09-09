@@ -140,8 +140,8 @@ export function MobileSidebar({ open, toggleOpen }: MobileSidebarProps) {
               gap: "16px",
             })}
           >
-            {DashboardItems.map(({ id, title, Icon }) => (
-              <div
+            {DashboardItems.map(({ id, title, Icon, link }) => (
+              <a
                 className={css({
                   width: "100%",
                   height: "40px",
@@ -154,11 +154,13 @@ export function MobileSidebar({ open, toggleOpen }: MobileSidebarProps) {
                   borderRadius: "10px",
                   cursor: "pointer",
                   transition: "all 200ms ease",
+                  textDecoration: "none",
                   "&:hover, &:active": {
                     backgroundColor: "#D4D9E1",
                   },
                 })}
                 key={`sidebar_link_${id}_mobile`}
+                href={link}
               >
                 <Icon
                   className={css({
@@ -176,7 +178,7 @@ export function MobileSidebar({ open, toggleOpen }: MobileSidebarProps) {
                 >
                   {title}
                 </span>
-              </div>
+              </a>
             ))}
           </div>
         </div>
