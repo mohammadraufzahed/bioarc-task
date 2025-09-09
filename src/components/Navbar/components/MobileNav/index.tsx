@@ -10,7 +10,7 @@ export const MobileNavbar = () => {
       <div
         className={css({
           width: { base: "100%" },
-          display: "flex",
+          display: { base: "flex", lg: "none" },
           flexDir: { base: "row" },
           alignItems: { base: "center", lg: "flex-start" },
           justifyContent: { base: "space-between" },

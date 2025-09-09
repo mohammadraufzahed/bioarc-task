@@ -13,7 +13,7 @@ export const DesktopNav = () => {
       <div
         className={css({
           width: { base: "100%" },
-          display: "flex",
+          display: { base: "none", lg: "flex" },
           flexDir: { base: "row" },
           alignItems: { base: "center", lg: "flex-start" },
           justifyContent: { base: "space-between" },

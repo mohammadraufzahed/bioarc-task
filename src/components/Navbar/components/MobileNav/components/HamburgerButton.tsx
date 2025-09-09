@@ -18,7 +18,7 @@ export const HamburgerButton = () => {
     <button
       onClick={toggle}
       className={css({
-        display: { base: "flex", lg: "none" },
+        display: "flex",
         flexDir: "column",
         alignItems: "center",
         justifyContent: "center",
