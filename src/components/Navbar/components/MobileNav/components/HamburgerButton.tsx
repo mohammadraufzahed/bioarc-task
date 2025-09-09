@@ -1,6 +1,6 @@
 import { css } from "@/styled-system/css";
 import { styled } from "@/styled-system/jsx";
-import { useNavbarContext } from "../context";
+import { useNavbarContext } from "../../../context";
 
 const Bar = styled("div", {
   base: {
@@ -12,7 +12,7 @@ const Bar = styled("div", {
   },
 });
 
-export function HamburgerButton() {
+export const HamburgerButton = () => {
   const { toggle, open } = useNavbarContext();
   return (
     <button
@@ -45,4 +45,4 @@ export function HamburgerButton() {
       <Bar opacity={open ? 0 : 1} />
     </button>
   );
-}
+};
