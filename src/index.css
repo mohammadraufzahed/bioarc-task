@@ -1,1 +1,6 @@
+@import '@fontsource-variable/vazirmatn';
 @layer reset, base, tokens, recipes, utilities;
+
+:root {
+    --font-vazirmatn: 'Vazirmatn Variable', sans-serif;
+}

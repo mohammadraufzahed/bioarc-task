@@ -1,9 +1,47 @@
 import { css } from "@/styled-system/css";
+import { HamburgerButton, MobileSidebar } from "./components";
+import { useCallback, useState } from "react";
+import { Icons } from "../Icons";
 
 // Images
-import Logo from "@/assets/logo.svg?url";
-import { HamburgerButton } from "./components";
-import { useCallback, useState } from "react";
+import LogoUrl from "@/assets/logo.svg?url";
+
+export const DashboardItems = [
+  {
+    id: "my_panel",
+    title: "پنل من",
+    Icon: Icons.PersonalCard,
+  },
+  {
+    id: "treatment",
+    title: "درمان",
+    Icon: Icons.HomePlus,
+  },
+  {
+    id: "my_patients",
+    title: "بیماران من",
+    Icon: Icons.Users,
+  },
+  {
+    id: "finance",
+    title: "مالی",
+    Icon: Icons.DollarSign,
+  },
+  {
+    id: "inventory",
+    title: "انبار",
+    Icon: Icons.Layer,
+  },
+  {
+    id: "biovisit",
+    title: "بایوویزیت",
+    Icon: Icons.Calendar,
+  },
+] satisfies {
+  id: string;
+  title: string;
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
+}[];
 
 export default function Navbar() {
   // Stats
@@ -34,7 +72,7 @@ export default function Navbar() {
         })}
       >
         <img
-          src={Logo}
+          src={LogoUrl}
           className={css({
             width: "150px",
             height: "35px",
@@ -42,6 +80,7 @@ export default function Navbar() {
         />
         <HamburgerButton open={open} toggleOpen={toggleOpen} />
       </div>
+      <MobileSidebar open={open} toggleOpen={toggleOpen} />
     </div>
   );
 }

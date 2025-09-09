@@ -25,6 +25,7 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
+    "@fontsource-variable/vazirmatn": "^5.2.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   }
