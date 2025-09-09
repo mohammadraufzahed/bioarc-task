@@ -1,131 +1,128 @@
 import { css } from "@/styled-system/css";
 import { Avatar, HamburgerButton, MobileSidebar } from "./components";
-import { useCallback, useMemo, useState } from "react";
 import { Icons } from "../Icons";
 
 // Images
 import LogoUrl from "@/assets/logo.svg?url";
 import { DASHBOARD_ITEMS, USER_INFORMATIONS } from "./constants";
+import { NavbarContextProvider } from "./context";
 
 export default function Navbar() {
-  // Stats
-  const [open, setOpen] = useState(false);
-  //  Callbacks
-  const toggleOpen = useCallback(() => setOpen((open) => !open), []);
-
   return (
-    <div
-      className={css({
-        width: "100%",
-        height: "max-content",
-        padding: {
-          base: "24px 12px",
-          sm: "15px  24px",
-        },
-        backgroundColor: "#F6F8FC",
-        boxShadow: "0px 4px 6px 0px #D1D3DA40",
-        border: "1px solid #EBF1FA",
-        display: "flex",
-        flexDir: "column",
-        alignItems: "flex-start",
-        justifyContent: "flex-start",
-        gap: "8px",
-      })}
-    >
+    <NavbarContextProvider>
       <div
         className={css({
-          width: { base: "100%" },
+          width: "100%",
+          height: "max-content",
+          padding: {
+            base: "24px 12px",
+            sm: "15px  24px",
+          },
+          backgroundColor: "#F6F8FC",
+          boxShadow: "0px 4px 6px 0px #D1D3DA40",
+          border: "1px solid #EBF1FA",
           display: "flex",
-          flexDir: { base: "row" },
-          alignItems: { base: "center", lg: "flex-start" },
-          justifyContent: { base: "space-between" },
+          flexDir: "column",
+          alignItems: "flex-start",
+          justifyContent: "flex-start",
+          gap: "8px",
         })}
       >
-        <img
-          src={LogoUrl}
-          className={css({
-            width: "150px",
-            height: "35px",
-          })}
-        />
         <div
           className={css({
-            display: { base: "none", lg: "flex" },
-            alignItems: "center",
-            justifyContent: "flex-end",
-            gap: "16px",
+            width: { base: "100%" },
+            display: "flex",
+            flexDir: { base: "row" },
+            alignItems: { base: "center", lg: "flex-start" },
+            justifyContent: { base: "space-between" },
           })}
         >
+          <img
+            src={LogoUrl}
+            className={css({
+              width: "150px",
+              height: "35px",
+            })}
+          />
           <div
             className={css({
-              display: "flex",
+              display: { base: "none", lg: "flex" },
               alignItems: "center",
-              justifyContent: "center",
-              gap: "10px",
+              justifyContent: "flex-end",
+              gap: "16px",
             })}
           >
-            <span
+            <div
               className={css({
-                color: "#606367",
-                fontFamily: "vazirmatn",
-                fontWeight: 700,
-                fontSize: "15px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
               })}
             >
-              EN
-            </span>
-            <Icons.Notification
-              className={css({
-                cursor: "pointer",
-              })}
-            />
-            <Icons.Settings
-              className={css({
-                cursor: "pointer",
-              })}
-            />
-            <Icons.Messages
-              className={css({
-                cursor: "pointer",
-              })}
-            />
+              <span
+                className={css({
+                  color: "#606367",
+                  fontFamily: "vazirmatn",
+                  fontWeight: 700,
+                  fontSize: "15px",
+                })}
+              >
+                EN
+              </span>
+              <Icons.Notification
+                className={css({
+                  cursor: "pointer",
+                })}
+              />
+              <Icons.Settings
+                className={css({
+                  cursor: "pointer",
+                })}
+              />
+              <Icons.Messages
+                className={css({
+                  cursor: "pointer",
+                })}
+              />
+            </div>
+            <UserInformationBox />
+            <Avatar />
           </div>
-          <UserInformationBox />
-          <Avatar />
+          <HamburgerButton />
         </div>
-        <HamburgerButton open={open} toggleOpen={toggleOpen} />
-      </div>
-      <div
-        className={css({
-          display: {
-            base: "none",
-            lg: "flex",
-          },
-          alignItems: "center",
-          justifyContent: "flex-start",
-          gap: "16px",
-          pr: "20px",
-        })}
-      >
-        <NavigationItem Icon={Icons.Settings3} title="مدیریت" isBold />
         <div
           className={css({
-            width: "1px",
-            height: "19px",
-            backgroundColor: "#E6ECF6",
+            display: {
+              base: "none",
+              lg: "flex",
+            },
+            alignItems: "center",
+            justifyContent: "flex-start",
+            gap: "16px",
+            pr: "20px",
           })}
-        />
-        {DASHBOARD_ITEMS.map(({ id, link, title, Icon }) => (
-          <NavigationItem
-            key={`navigation_item_${id}_desktop`}
-            link={link}
-            title={title}
-            Icon={Icon}
+        >
+          <NavigationItem Icon={Icons.Settings3} title="مدیریت" isBold />
+          <div
+            className={css({
+              width: "1px",
+              height: "19px",
+              backgroundColor: "#E6ECF6",
+            })}
           />
-        ))}
+          {DASHBOARD_ITEMS.map(({ id, link, title, Icon }) => (
+            <NavigationItem
+              key={`navigation_item_${id}_desktop`}
+              link={link}
+              title={title}
+              Icon={Icon}
+            />
+          ))}
+        </div>
+        <MobileSidebar />
       </div>
-      <MobileSidebar open={open} toggleOpen={toggleOpen} />
-    </div>
+    </NavbarContextProvider>
   );
 }
 
@@ -142,7 +139,7 @@ const NavigationItem = ({
   title,
   isBold = false,
 }: NavigationItemProps) => {
-  const Wrapper = useMemo(() => (link ? "a" : "div"), [link]);
+  const Wrapper = link ? "a" : "div";
 
   return (
     <Wrapper

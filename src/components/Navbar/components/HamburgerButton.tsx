@@ -1,5 +1,6 @@
 import { css } from "@/styled-system/css";
 import { styled } from "@/styled-system/jsx";
+import { useNavbarContext } from "../context";
 
 const Bar = styled("div", {
   base: {
@@ -11,15 +12,11 @@ const Bar = styled("div", {
   },
 });
 
-interface HamburgerButtonProps {
-  open: boolean;
-  toggleOpen: () => void;
-}
-
-export function HamburgerButton({ open, toggleOpen }: HamburgerButtonProps) {
+export function HamburgerButton() {
+  const { toggle, open } = useNavbarContext();
   return (
     <button
-      onClick={toggleOpen}
+      onClick={toggle}
       className={css({
         display: { base: "flex", lg: "none" },
         flexDir: "column",

@@ -4,13 +4,10 @@ import { useEffect, useState } from "react";
 import { DASHBOARD_ITEMS, USER_INFORMATIONS } from "../constants";
 import { Icons } from "@/components/Icons";
 import { Avatar } from "./Avatar";
+import { useNavbarContext } from "../context";
 
-interface MobileSidebarProps {
-  open: boolean;
-  toggleOpen: () => void;
-}
-
-export function MobileSidebar({ open, toggleOpen }: MobileSidebarProps) {
+export function MobileSidebar() {
+  const { open, toggle } = useNavbarContext();
   const [visible, setVisible] = useState(open);
   const [_animating, setAnimating] = useState(false);
 
@@ -31,7 +28,7 @@ export function MobileSidebar({ open, toggleOpen }: MobileSidebarProps) {
   }, [open]);
 
   const containerRef = useClickOutside<HTMLDivElement>(() =>
-    open ? toggleOpen() : null
+    open ? toggle() : null
   );
 
   if (!visible) return;
