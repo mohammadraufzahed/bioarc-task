@@ -49,6 +49,9 @@ export function MobileSidebar({ open, toggleOpen }: MobileSidebarProps) {
         zIndex: 100,
         transition: "opacity 500ms ease",
         opacity: open ? 1 : 0,
+        md: {
+          display: "none",
+        },
       })}
     >
       <div
