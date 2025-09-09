@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 // Images
 import AvatarUrl from "@/assets/avatar.png?url";
-import { DashboardItems } from "..";
+import { DASHBOARD_ITEMS } from "..";
 import { Icons } from "@/components/Icons";
 
 interface MobileSidebarProps {
@@ -140,7 +140,7 @@ export function MobileSidebar({ open, toggleOpen }: MobileSidebarProps) {
               gap: "16px",
             })}
           >
-            {DashboardItems.map(({ id, title, Icon, link }) => (
+            {DASHBOARD_ITEMS.map(({ id, title, Icon, link }) => (
               <a
                 className={css({
                   width: "100%",

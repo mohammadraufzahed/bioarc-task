@@ -4,7 +4,11 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
-    plugins: [react(), svgr({ svgrOptions: { icon: true } }), tsconfigPaths()],
+    plugins: [
+        react(),
+        svgr({ svgrOptions: { icon: true, memo: true, typescript: true } }),
+        tsconfigPaths(),
+    ],
     resolve: {
         alias: {
             "@": "/src",

@@ -6,7 +6,14 @@ import { Icons } from "../Icons";
 // Images
 import LogoUrl from "@/assets/logo.svg?url";
 
-export const DashboardItems = [
+interface DashoardItem {
+  id: string;
+  link: string;
+  title: string;
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
+}
+
+export const DASHBOARD_ITEMS: DashoardItem[] = [
   {
     id: "my_panel",
     title: "پنل من",
@@ -43,12 +50,7 @@ export const DashboardItems = [
     link: "#",
     Icon: Icons.Calendar,
   },
-] satisfies {
-  id: string;
-  link: string;
-  title: string;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
-}[];
+] as const;
 
 export default function Navbar() {
   // Stats
@@ -113,7 +115,7 @@ export default function Navbar() {
             backgroundColor: "#E6ECF6",
           })}
         />
-        {DashboardItems.map(({ id, link, title, Icon }) => (
+        {DASHBOARD_ITEMS.map(({ id, link, title, Icon }) => (
           <NavigationItem
             key={`navigation_item_${id}_desktop`}
             link={link}
