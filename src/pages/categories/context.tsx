@@ -76,24 +76,27 @@ export const CategoriesContextProvider = ({
       setRawList((list) => [...list, raw]);
       return raw;
     },
-    []
+    [rawList, setRawList]
   );
-  const remove = useCallback((id: string) => {
-    setRawList((prev) => {
-      const collectIdsToRemove = (targetId: string, acc: Set<string>) => {
-        acc.add(targetId);
+  const remove = useCallback(
+    (id: string) => {
+      setRawList((prev) => {
+        const collectIdsToRemove = (targetId: string, acc: Set<string>) => {
+          acc.add(targetId);
 
-        for (const node of prev) {
-          if (node.parentId == targetId) {
-            collectIdsToRemove(node.id, acc);
+          for (const node of prev) {
+            if (node.parentId == targetId) {
+              collectIdsToRemove(node.id, acc);
+            }
           }
-        }
-        return acc;
-      };
-      const idsToRemove = collectIdsToRemove(id, new Set());
-      return prev.filter((node) => !idsToRemove.has(node.id));
-    });
-  }, []);
+          return acc;
+        };
+        const idsToRemove = collectIdsToRemove(id, new Set());
+        return prev.filter((node) => !idsToRemove.has(node.id));
+      });
+    },
+    [setRawList]
+  );
 
   return (
     <CategoriesContext.Provider value={{ raw: rawList, tree, add, remove }}>
