@@ -35,6 +35,18 @@ export const SelectInput = styled("select", {
     },
   },
   variants: {
+    error: {
+      true: {
+        color: "#E53935",
+        border: "1px solid #E53935",
+        backgroundImage:
+          "linear-gradient(45deg, transparent 50%, #E53935 50%), linear-gradient(135deg, #E53935 50%, transparent 50%)",
+        _focus: {
+          borderColor: "#E53935",
+        },
+      },
+      false: {},
+    },
     outline: {
       true: {
         border: "1px solid #B2C6E3",
@@ -57,5 +69,6 @@ export const SelectInput = styled("select", {
   defaultVariants: {
     width: "full",
     outline: false,
+    error: false,
   },
 });

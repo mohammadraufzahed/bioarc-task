@@ -16,8 +16,15 @@ export const Label = styled("label", {
         },
       },
     },
+    error: {
+      true: {
+        color: "#F91C1C",
+      },
+      false: {},
+    },
   },
   defaultVariants: {
     required: false,
+    error: false,
   },
 });

@@ -1,23 +1,53 @@
 import Button from "@/components/Button";
 import { Icons } from "@/components/Icons";
-import { Field, Input, Label, SelectInput } from "@/components/Form";
 import Modal from "@/components/Modal";
 import { css } from "@/styled-system/css";
 import { useCallback, useState } from "react";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { InputField, SelectField } from "@/components/Form/Fields";
+
+const schema = z.object({
+  name: z.object({
+    fa: z.string().min(1, "نام دسته بندی باید وارد شود"),
+    en: z.string().regex(/^[a-zA-Z\s]+$/, "باید فقط حروف انگلیسی باشد"),
+  }),
+  parentId: z.string().optional(),
+});
 
 export const CreateModal = () => {
   // Stats
   const [open, setOpen] = useState<boolean>(false);
 
+  // Form
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting, isValid, errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+    mode: "all",
+  });
+
   // Callbacks
-  const toggleOpen = useCallback(() => setOpen((open) => !open), []);
+  const openModal = useCallback(() => setOpen(true), []);
+  const closeModal = useCallback(() => {
+    setOpen(false);
+    reset();
+  }, []);
+  const onSubmit = useCallback(() => {
+    alert("Handled");
+    closeModal();
+  }, [closeModal]);
   return (
     <>
-      <Button onClick={toggleOpen}>
+      <Button onClick={openModal}>
         <Icons.Plus width={14} height={14} /> دسته‌بندی جدید
       </Button>
-      <Modal open={open} onClose={toggleOpen} maxWidth={"553px"}>
-        <div
+      <Modal open={open} onClose={closeModal} maxWidth={"553px"}>
+        <form
           className={css({
             display: "flex",
             flexDir: "column",
@@ -25,6 +55,7 @@ export const CreateModal = () => {
             justifyContent: "center",
             gap: "18px",
           })}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div
             className={css({
@@ -68,7 +99,7 @@ export const CreateModal = () => {
               cursor="pointer"
               width={15.46}
               height={15.46}
-              onClick={toggleOpen}
+              onClick={closeModal}
             />
           </div>
           <div
@@ -84,34 +115,72 @@ export const CreateModal = () => {
               gap: 21,
             })}
           >
-            <Field>
-              <Label htmlFor="#name_fa" required>
-                نام دسته‌بندی(فارسی):
-              </Label>
-              <Input
-                id="name_fa"
-                outline
-                placeholder="نام دسته بندی را وارد کنید"
-              />
-            </Field>
-            <Field>
-              <Label htmlFor="#name_en" required>
-                نام دسته‌بندی(انگلیسی):
-              </Label>
-              <Input
-                id="name_en"
-                outline
-                placeholder="نام دسته بندی را به انگلیسی وارد کنید"
-              />
-            </Field>
-            <Field>
-              <Label htmlFor="#parent_id">دسته بندی والد:</Label>
-              <SelectInput id="parent_id" outline>
-                <option>بدون دسته‌بندی</option>
-              </SelectInput>
-            </Field>
+            <InputField
+              label="نام دسته‌بندی(فارسی):"
+              error={errors.name?.fa?.message}
+              labelProps={{
+                htmlFor: "name_fa",
+                required: true,
+              }}
+              inputProps={{
+                id: "name_fa",
+                outline: true,
+                placeholder: "نام دسته بندی را وارد کنید",
+                ...register("name.fa", { required: true }),
+              }}
+            />
+            <InputField
+              label="نام دسته‌بندی(انگلیسی):"
+              error={errors.name?.en?.message}
+              labelProps={{
+                htmlFor: "name_en",
+                required: true,
+              }}
+              inputProps={{
+                id: "name_en",
+                outline: true,
+                placeholder: "نام دسته بندی را به انگلیسی وارد کنید",
+                ...register("name.en", { required: true }),
+              }}
+            />
+            <SelectField
+              label="دسته بندی والد:"
+              error={errors.parentId?.message}
+              labelProps={{
+                htmlFor: "parent_id",
+              }}
+              selectProps={{
+                id: "parent_id",
+                outline: true,
+                ...register("parentId"),
+              }}
+            >
+              <option value={""}>بدون دسته‌بندی</option>
+            </SelectField>
           </div>
-        </div>
+          <div
+            className={css({
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              gap: "29px",
+            })}
+          >
+            <Button
+              disabled={isSubmitting}
+              type="button"
+              onClick={closeModal}
+              width={104}
+              outline
+            >
+              انصراف
+            </Button>
+            <Button disabled={isSubmitting || !isValid} width={104}>
+              ثبت
+            </Button>
+          </div>
+        </form>
       </Modal>
     </>
   );

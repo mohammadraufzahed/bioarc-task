@@ -3,6 +3,7 @@ import { styled } from "@/styled-system/jsx";
 
 const styles = cva({
   base: {
+    height: "40px",
     fontFamily: "vazirmatn",
     fontWeight: 400,
     fontSize: "14px",
@@ -19,6 +20,10 @@ const styles = cva({
     },
     _active: {
       transform: "translateY(-2px)",
+    },
+    _disabled: {
+      opacity: 0.7,
+      cursor: "default",
     },
   },
   variants: {

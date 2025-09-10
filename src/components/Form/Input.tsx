@@ -30,6 +30,10 @@ export const Input = styled("input", {
         backgroundColor: "#FFF",
       },
     },
+    error: {
+      true: {},
+      false: {},
+    },
     width: {
       fit: { width: "fit-content" },
       full: { width: "100%" },
@@ -38,8 +42,41 @@ export const Input = styled("input", {
       lg: { width: "400px" },
     },
   },
+  compoundVariants: [
+    {
+      error: true,
+      outline: false,
+      css: {
+        color: "#E53935",
+        boxShadow: "0 0 0 1px #E53935",
+        _placeholder: {
+          color: "#E53935",
+        },
+        _focus: {
+          boxShadow: "0 0 0 2px #E53935",
+        },
+      },
+    },
+    {
+      error: true,
+      outline: true,
+      css: {
+        color: "#E53935",
+        borderColor: "unset",
+        boxShadow: "0 0 0 1px #E53935",
+        _placeholder: {
+          color: "#E53935",
+        },
+        _focus: {
+          borderColor: "#E53935",
+          boxShadow: "0 0 0 1px #E53935",
+        },
+      },
+    },
+  ],
   defaultVariants: {
     width: "full",
     outline: false,
+    error: false,
   },
 });
