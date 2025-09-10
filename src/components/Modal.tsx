@@ -37,6 +37,8 @@ const Modal = ({ onClose, maxWidth, children, open = false }: ModalProps) => {
           width: "90%",
           maxWidth: maxWidth ?? "320px",
           height: "max-content",
+          maxHeight: "90dvh",
+          overflowY: "auto",
           p: "20px 32px",
           border: "1px solid #EBF1F8",
           borderRadius: "15px",

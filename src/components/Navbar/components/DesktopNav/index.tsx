@@ -6,6 +6,7 @@ import { DASHBOARD_ITEMS } from "../../constants";
 
 // Images
 import LogoUrl from "@/assets/logo.svg?url";
+import { Divider } from "@/styled-system/jsx";
 
 export const DesktopNav = () => {
   return (
@@ -85,12 +86,11 @@ export const DesktopNav = () => {
         })}
       >
         <NavigationItem Icon={Icons.Settings3} title="مدیریت" isBold />
-        <div
-          className={css({
-            width: "1px",
-            height: "19px",
-            backgroundColor: "#E6ECF6",
-          })}
+        <Divider
+          orientation="vertical"
+          thickness="1px"
+          height="19px"
+          color="#E6ECF6"
         />
         {DASHBOARD_ITEMS.map(({ id, link, title, Icon }) => (
           <NavigationItem

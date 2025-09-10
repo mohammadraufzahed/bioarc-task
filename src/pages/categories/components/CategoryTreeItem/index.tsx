@@ -3,7 +3,6 @@ import type { CategoryTree } from "../../types";
 import { css } from "@/styled-system/css";
 import { useCallback, useMemo, useState } from "react";
 import { useCategoriesContext } from "../../context";
-import Modal from "@/components/Modal";
 import { CategoryModal } from "./components";
 
 interface CategoryTreeItemProps {
