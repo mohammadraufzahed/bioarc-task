@@ -1,7 +1,7 @@
-import { Field } from "../Field";
-import { FieldError } from "../FieldError";
-import { Label } from "../Label";
-import { SelectInput } from "../SelectInput";
+import { Field } from "../Layouts/Field";
+import { FieldError } from "../Primitives/FieldError";
+import { Label } from "../Primitives/Label";
+import { SelectInput } from "../Primitives/SelectInput";
 
 interface SelectFieldProps extends React.PropsWithChildren {
   label: string;

@@ -2,11 +2,12 @@ import Button from "@/components/Button";
 import { Icons } from "@/components/Icons";
 import Modal from "@/components/Modal";
 import { css } from "@/styled-system/css";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { InputField, SelectField } from "@/components/Form/Fields";
+import { TextInputField, SelectField } from "@/components/Form";
+import { useCategoriesContext } from "../context";
 
 const schema = z.object({
   name: z.object({
@@ -16,9 +17,14 @@ const schema = z.object({
   parentId: z.string().optional(),
 });
 
+interface FormType extends z.infer<typeof schema> {}
+
 export const CreateModal = () => {
   // Stats
   const [open, setOpen] = useState<boolean>(false);
+
+  // Context
+  const { raw, add } = useCategoriesContext();
 
   // Form
   const {
@@ -26,10 +32,16 @@ export const CreateModal = () => {
     handleSubmit,
     reset,
     formState: { isSubmitting, isValid, errors },
-  } = useForm({
+  } = useForm<FormType>({
     resolver: zodResolver(schema),
     mode: "all",
   });
+
+  // Memos
+  const parentOptions = useMemo(
+    () => raw.map((node) => ({ label: node.name.fa, value: node.id })),
+    [raw]
+  );
 
   // Callbacks
   const openModal = useCallback(() => setOpen(true), []);
@@ -37,10 +49,14 @@ export const CreateModal = () => {
     setOpen(false);
     reset();
   }, []);
-  const onSubmit = useCallback(() => {
-    alert("Handled");
-    closeModal();
-  }, [closeModal]);
+  const onSubmit = useCallback(
+    (payload: FormType) => {
+      const node = add(payload);
+      console.log(node);
+      closeModal();
+    },
+    [closeModal, add]
+  );
   return (
     <>
       <Button onClick={openModal}>
@@ -115,7 +131,7 @@ export const CreateModal = () => {
               gap: 21,
             })}
           >
-            <InputField
+            <TextInputField
               label="نام دسته‌بندی(فارسی):"
               error={errors.name?.fa?.message}
               labelProps={{
@@ -129,7 +145,7 @@ export const CreateModal = () => {
                 ...register("name.fa", { required: true }),
               }}
             />
-            <InputField
+            <TextInputField
               label="نام دسته‌بندی(انگلیسی):"
               error={errors.name?.en?.message}
               labelProps={{
@@ -156,6 +172,14 @@ export const CreateModal = () => {
               }}
             >
               <option value={""}>بدون دسته‌بندی</option>
+              {parentOptions.map((option) => (
+                <option
+                  key={`parent_option_${option.value}`}
+                  value={option.value}
+                >
+                  {option.label}
+                </option>
+              ))}
             </SelectField>
           </div>
           <div

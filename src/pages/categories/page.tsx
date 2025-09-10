@@ -1,4 +1,4 @@
-import { Input } from "@/components/Form";
+import { TextInput } from "@/components/Form";
 import { css } from "@/styled-system/css";
 import { CategoriesContextProvider } from "./context";
 import { CreateModal } from "./components";
@@ -51,7 +51,7 @@ export default function CategoriesPage() {
         </span>
         <CreateModal />
       </div>
-      <Input placeholder="نام دسته‌بندی را جستجو کنید..." />
+      <TextInput placeholder="نام دسته‌بندی را جستجو کنید..." />
     </div>
   );
 }

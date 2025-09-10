@@ -69,7 +69,8 @@ export const CategoriesContextProvider = ({
       const raw: CategoryFlat = {
         id: crypto.randomUUID(),
         name: payload.name,
-        parentId: payload.parentId ?? null,
+        parentId:
+          rawList.find((node) => node.id === payload.parentId)?.id ?? null,
         createdAt: new Date(),
       };
       setRawList((list) => [...list, raw]);

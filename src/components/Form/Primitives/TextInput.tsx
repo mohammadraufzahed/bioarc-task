@@ -1,6 +1,6 @@
 import { styled } from "@/styled-system/jsx";
 
-export const Input = styled("input", {
+export const TextInput = styled("input", {
   base: {
     height: "40px",
     padding: "13px 16px",
