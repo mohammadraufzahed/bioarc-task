@@ -1,9 +1,10 @@
 import { TextInput } from "@/components/Form";
 import { css } from "@/styled-system/css";
-import { CategoriesContextProvider } from "./context";
-import { CreateModal } from "./components";
+import { CategoriesContextProvider, useCategoriesContext } from "./context";
+import { CategoryTreeItem, CreateModal } from "./components";
 
 export default function CategoriesPage() {
+  const { tree, setSearchQuery } = useCategoriesContext();
   return (
     <div
       className={css({
@@ -51,7 +52,30 @@ export default function CategoriesPage() {
         </span>
         <CreateModal />
       </div>
-      <TextInput placeholder="نام دسته‌بندی را جستجو کنید..." />
+      <TextInput
+        placeholder="نام دسته‌بندی را جستجو کنید..."
+        onChange={(e) => setSearchQuery(e.currentTarget.value)}
+      />
+
+      <div
+        className={css({
+          width: "100%",
+          flexGrow: 1,
+          flexShrink: 0,
+          height: "max-content",
+          overflowX: "auto",
+          overflowY: "visible",
+          display: "flex",
+          flexDir: "column",
+          alignItems: "flex-start",
+          justifyContent: "flex-start",
+          gap: "20px",
+        })}
+      >
+        {tree.map((node) => (
+          <CategoryTreeItem key={`category-node-${node.id}`} node={node} />
+        ))}
+      </div>
     </div>
   );
 }
