@@ -1,9 +1,10 @@
 import { Icons } from "@/components/Icons";
-import type { CategoryTree } from "../types";
+import type { CategoryTree } from "../../types";
 import { css } from "@/styled-system/css";
 import { useCallback, useMemo, useState } from "react";
-import { useCategoriesContext } from "../context";
+import { useCategoriesContext } from "../../context";
 import Modal from "@/components/Modal";
+import { CategoryModal } from "./components";
 
 interface CategoryTreeItemProps {
   node: CategoryTree;
@@ -20,6 +21,7 @@ export const CategoryTreeItem = ({ node }: CategoryTreeItemProps) => {
   const toggleOpen = useCallback(() => setOpen((open) => !open), [setOpen]);
   const openModal = useCallback(() => setModalOpen(true), [setModalOpen]);
   const closeModal = useCallback(() => setModalOpen(false), [setModalOpen]);
+
   // Memos
   const hasChildren = useMemo(() => node.children.length > 0, [node]);
   const isChild = useMemo(() => !!node.parentId, [node]);
@@ -171,7 +173,7 @@ export const CategoryTreeItem = ({ node }: CategoryTreeItemProps) => {
           ))}
         </div>
       ) : null}
-      <Modal open={modalOpen} onClose={closeModal}></Modal>
+      <CategoryModal open={modalOpen} onClose={closeModal} />
     </div>
   );
 };
