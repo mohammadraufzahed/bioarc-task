@@ -28,7 +28,7 @@ export function MobileSidebar() {
     }
   }, [open]);
 
-  const containerRef = useClickOutside<HTMLDivElement>(() =>
+  const dialogref = useClickOutside<HTMLDivElement>(() =>
     open ? toggle() : null
   );
 
@@ -51,7 +51,7 @@ export function MobileSidebar() {
       })}
     >
       <div
-        ref={containerRef}
+        ref={dialogref}
         className={css({
           width: "240px",
           height: "screen",

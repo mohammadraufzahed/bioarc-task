@@ -1,7 +1,7 @@
-import Button from "@/components/Button";
-import { Icons } from "@/components/Icons";
-import Input from "@/components/Input";
+import { Input } from "@/components/Form";
 import { css } from "@/styled-system/css";
+import { CategoriesContextProvider } from "./context";
+import { CreateModal } from "./components";
 
 export default function CategoriesPage() {
   return (
@@ -23,25 +23,41 @@ export default function CategoriesPage() {
         className={css({
           width: "100%",
           display: "flex",
-          alignItems: "center",
+          flexDir: {
+            base: "column-reverse",
+            sm: "row",
+          },
+          alignItems: {
+            base: "flex-start",
+            sm: "center",
+          },
           justifyContent: "space-between",
+          gap: "24px",
         })}
       >
         <span
           className={css({
             fontFamily: "vazirmatn",
             fontWeight: 700,
-            fontSize: "18px",
+            fontSize: {
+              base: "15px",
+              md: "18px",
+            },
+            textAlign: "right",
             color: "#36459B",
           })}
         >
           مدیریت دسته بندی اسناد و ویدیو های بایوآرک
         </span>
-        <Button>
-          <Icons.Plus width={14} height={14} /> دسته‌بندی جدید
-        </Button>
+        <CreateModal />
       </div>
       <Input placeholder="نام دسته‌بندی را جستجو کنید..." />
     </div>
   );
 }
+
+CategoriesPage.WithContext = () => (
+  <CategoriesContextProvider>
+    <CategoriesPage />
+  </CategoriesContextProvider>
+);

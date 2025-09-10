@@ -3,5 +3,5 @@ import CategoriesPage from "./page";
 
 export default {
     path: "categories",
-    Component: CategoriesPage,
+    Component: CategoriesPage.WithContext,
 } satisfies RouteObject;

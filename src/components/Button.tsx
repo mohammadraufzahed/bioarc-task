@@ -53,7 +53,7 @@ const styles = cva({
       },
       ghost: {
         color: "#36459B",
-        backgroundcolor: "transparent",
+        backgroundColor: "transparent",
       },
     },
     outline: {

@@ -1,7 +1,6 @@
-import { cva } from "@/styled-system/css";
 import { styled } from "@/styled-system/jsx";
 
-const styles = cva({
+export const Input = styled("input", {
   base: {
     height: "40px",
     padding: "13px 16px",
@@ -11,8 +10,13 @@ const styles = cva({
     fontFamily: "vazirmatn",
     fontWeight: 400,
     fontSize: 12,
+    transition: "all 100ms ease",
     _placeholder: {
       color: "#8C8C8C",
+    },
+    _focus: {
+      borderColor: "#6A92CE",
+      boxShadow: "0 0 0 2px #E2ECF9",
     },
   },
   variants: {
@@ -39,7 +43,3 @@ const styles = cva({
     outline: false,
   },
 });
-
-const Input = styled("input", styles);
-
-export default Input;
