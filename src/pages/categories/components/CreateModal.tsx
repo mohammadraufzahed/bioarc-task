@@ -51,8 +51,7 @@ export const CreateModal = () => {
   }, []);
   const onSubmit = useCallback(
     (payload: FormType) => {
-      const node = add(payload);
-      console.log(node);
+      add(payload);
       closeModal();
     },
     [closeModal, add]
