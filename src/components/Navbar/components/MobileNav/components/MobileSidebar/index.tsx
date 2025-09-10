@@ -6,6 +6,7 @@ import { Icons } from "@/components/Icons";
 import { Avatar } from "../../../Avatar";
 import { useNavbarContext } from "../../../../context";
 import { UserInformationMobileBox } from "./components";
+import { createPortal } from "react-dom";
 
 export function MobileSidebar() {
   const { open, toggle } = useNavbarContext();
@@ -34,7 +35,7 @@ export function MobileSidebar() {
 
   if (!visible) return;
 
-  return (
+  return createPortal(
     <div
       className={css({
         width: "screen",
@@ -180,6 +181,7 @@ export function MobileSidebar() {
         </div>
         <UserInformationMobileBox />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
